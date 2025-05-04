@@ -5,13 +5,13 @@ const fs = require("fs");
 const app = express();
 
 app.get("/video", (req, res) => {
-  const videoFilePath = path.join(__dirname, "video.json");
+  const videoFilePath = path.join(__dirname, "jok.json");
 
   fs.readFile(videoFilePath, "utf8", (err, videoData) => {
     if (err) {
       return res.status(500).json({
         status: "failed",
-        error: "Error reading video.json"
+        error: "Error reading jok.json"
       });
     }
 
@@ -20,7 +20,7 @@ app.get("/video", (req, res) => {
       if (!Array.isArray(videos) || videos.length === 0) {
         return res.status(500).json({
           status: "failed",
-          error: "No videos found in video.json"
+          error: "No videos found in jok.json"
         });
       }
 

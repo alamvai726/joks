@@ -4,10 +4,10 @@ const fs = require("fs");
 
 const app = express();
 
-app.get("/video", (req, res) => {
-  const videoFilePath = path.join(__dirname, "jok.json");
+app.get("/joke", (req, res) => {
+  const jokeFilePath = path.join(__dirname, "jok.json");
 
-  fs.readFile(videoFilePath, "utf8", (err, videoData) => {
+  fs.readFile(jokeFilePath, "utf8", (err, jokeData) => {
     if (err) {
       return res.status(500).json({
         status: "failed",
@@ -16,31 +16,28 @@ app.get("/video", (req, res) => {
     }
 
     try {
-      const videos = JSON.parse(videoData);
-      if (!Array.isArray(videos) || videos.length === 0) {
+      const jokes = JSON.parse(jokeData);
+      if (!Array.isArray(jokes) || jokes.length === 0) {
         return res.status(500).json({
           status: "failed",
-          error: "No videos found in jok.json"
+          error: "No jokes found in jok.json"
         });
       }
 
-      const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+      const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
 
-      const response = {
+      res.json({
         status: "success",
-        url: randomVideo,
+        joke: randomJoke,
         author: {
-          Name: "MOHAMMAD-JUBAYER",
-          Facebook: "https://www.facebook.com/profile.php?id=61573052122735"
+          name: "MOHAMMAD-JUBAYER",
+          facebook: "https://www.facebook.com/profile.php?id=61573052122735"
         }
-      };
-
-      res.setHeader("Content-Type", "application/json");
-      res.send(JSON.stringify(response, null, 2));
+      });
     } catch (parseError) {
       res.status(500).json({
         status: "failed",
-        error: "Error parsing video.json"
+        error: "Error parsing jok.json"
       });
     }
   });
@@ -48,5 +45,5 @@ app.get("/video", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Joke API running on port ${PORT}`);
 });

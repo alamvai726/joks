@@ -1,12 +1,14 @@
 {
-  "name": "VIDEO-API0",
+  "name": "joke-api",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "",
+  "description": "An API that returns random jokes",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
+  "author": "MOHAMMAD-JUBAYER",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.18.4"
+    "express": "^4.18.2"
   }
 }
